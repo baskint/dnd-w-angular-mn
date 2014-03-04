@@ -1,6 +1,6 @@
 ﻿'using strict';
 
-cmnCabApp.directive('cpsDndPlacementL2',  function ($compile) {
+dndApp.directive('cpsDndPlacementL2',  function ($compile) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {

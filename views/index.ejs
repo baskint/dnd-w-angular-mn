@@ -1,13 +1,158 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="dndApp">
-  <head>
+<head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='stylesheets/bootstrap/dist/css/bootstrap.css'/>
+    <link rel='stylesheet' href='stylesheets/style.css'/>
+
     <script src="javascripts/angular.js"></script>
+    <script src="javascripts/lvl-uuid.js"></script>
+    <script src="javascripts/lvl-drag-drop.js"></script>
+
     <script src="javascripts/dndApp.js"></script>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-<div>HTML5 native Drag & Drop</div>
-  </body>
+
+    <script src="javascripts/app/dndController.js"></script>
+    <script src="javascripts/app/dndRepository.js"></script>
+    <script src="javascripts/app/dndDirective.js"></script>
+
+    <script src="javascripts/modaldirective.js"></script>
+
+</head>
+<body ng-controller="DnDPocController">
+<div id="page-content-wrapper" class="container" style="padding-top:50px; padding-bottom:20px">
+    <div class="content-header">
+        <h2 class="pull-left">
+            <i class="glyphicon glyphicon-share"></i>
+            <span>Drag & Drop Element Placement</span>
+        </h2>
+    </div>
+</div>
+<div class="page-content inset" style="margin-left:20px">
+    <div class="row">
+        <div class="col-md-2">
+            <button class="btn btn-warning" ng-click="toggleModal()">+</button>
+            <button class="btn btn-warning" style="margin-left:75px" ng-click="removeCabinet()">-</button>
+            <div class="cabinet-source-container">
+
+                <div ng-repeat="cabinet in cabinets">
+                    <div class="drop-container" x-lvl-drop-target="false" x-on-drop='dropped(dragEl, dropEl)'>
+                        <div class="source-container" x-lvl-draggable="true"
+                             ng-class="{ 'selected-source-container': $index == selectedCabinetIndex }"
+                             ng-click="cabinetClicked($index)">
+                            <span id="{{cabinet.id}}" class="cabinetToggle">
+                                {{cabinet.name}}
+                            </span>
+                            <input class="cabinetToggle" id="cabType_{{cabinet.id}}" type="hidden"
+                                   value="{{cabinet.type}}"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Source Side Controls</h2>
+                </div>
+                <div class="panel-body cabinet-placement-area">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="drop-container" id="L1"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="L3"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="R1"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="R3"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="drop-container" id="L2"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'
+                                 cps-dnd-placement-L2></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="L4"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="R2"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="drop-container" id="R4"
+                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 col-md-offset-2">
+            <button class="btn btn-large btn-warning" ng-click="refresh()">
+                <i class='fa fa-refresh fa-2x'></i>
+                Reset
+            </button>
+        </div>
+        <div class="col-md-2 col-md-offset-6">
+            <button class="btn btn-large btn-custom-lighten" style="float:right" ng-click="save()">
+                <i class='fa fa-save fa-2x'></i>
+                Save
+            </button>
+        </div>
+    </div>
+</div>
+<modal-dialog show='modalShown' width='500px' height='50%'>
+    <h3>Info</h3>
+    <div class="well">
+        <form name ="controlForm" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="cabinetType">Type</label>
+                <div class="col-md-8">
+                    <select id="cabinetType" class="form-control">
+                        <option>VFI</option>
+                        <option>Motor</option>
+                        <option>Relay</option>
+                        <option>Motor w/Relay</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="baseCabType">Base Name</label>
+                <div class="col-md-8">
+                    <input id="baseCabType" class="form-control" ng-bind="baseCabName" ng-model="baseCabName" placeholder="base type" required />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="float:right">
+        <button class="btn btn-default" style="width:100px"
+                ng-disabled="!controlForm.$valid"
+                ng-click="addControl(baseCabName)">
+            OK
+        </button>
+        <button class="btn btn-default" style="width:100px" ng-click="toggleModal()">Cancel</button>
+
+    </div>
+</modal-dialog>
+
+</body>
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <p class="text-muted credit">Angular MN - 03/05/2014 Baskin Tapkan</p>
+        </div>
+    </div>
+</div>
 </html>

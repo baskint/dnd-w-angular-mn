@@ -1,7 +1,10 @@
-<h1>Drag & Drop Example with AngularJS</h1>
+Drag & Drop Example with AngularJS
+==================================
 
-<p>This is simple drag & drop HTML5 native example showcasing angularjs design patterns</p>
+>This is drag & drop HTML5 native example showcasing angularjs design patterns
+The drag & drop elements can be dynamically added and removed via the (+) and (-) buttons
 
-<p>Resources:</p>
-<ul>
-<li><a href="http://jasonturim.wordpress.com/2013/09/01/angularjs-drag-and-drop/">AngularJS Native Drag And Drop</a></li>
+
+#Resources:
+>
+> <a href="http://jasonturim.wordpress.com/2013/09/01/angularjs-drag-and-drop/">AngularJS Native Drag And Drop</a></li>

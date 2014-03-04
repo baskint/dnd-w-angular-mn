@@ -1,4 +1,4 @@
-﻿cmnCabApp.directive('modalDialog', function () {
+﻿dndApp.directive('modalDialog', function () {
     var rootSeg = getRootUrlAppBpaf();
     return {
         restrict: 'E',
@@ -17,6 +17,6 @@
                 scope.show = false;
             };
         },
-        templateUrl: rootSeg + '/Areas/CmnCab/Templates/ModalTemplate.html'
+        templateUrl: rootSeg + 'templates/ModalTemplate.html'
     };
 });

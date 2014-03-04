@@ -1,6 +1,6 @@
 ﻿'using strict';
 
-cmnCabApp.controller('DnDPocController', ['$scope', 'dndPocRepository', 'uuid', function($scope, dndPocRepository, uuid) {
+dndApp.controller('DnDPocController', ['$scope', 'dndPocRepository', 'uuid', function($scope, dndPocRepository, uuid) {
    
     // TODO - this should come back from a DB back-end HTTP GET.
     $scope.cabinets = 
