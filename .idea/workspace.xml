@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="39a3a573-a743-4f5e-b6e7-098f667bca5b" name="Default" comment="initial drag &amp; drop support scripts&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="39a3a573-a743-4f5e-b6e7-098f667bca5b" name="Default" comment="initial drag &amp; drop support scripts&#10;" />
     <ignored path="dnd-w-angular-mn.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -109,8 +107,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="212" />
-    <option name="y" value="157" />
+    <option name="x" value="218" />
+    <option name="y" value="375" />
     <option name="width" value="1152" />
     <option name="height" value="800" />
   </component>
@@ -305,7 +303,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="212" y="157" width="1152" height="800" extended-state="0" />
+    <frame x="218" y="375" width="1152" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
