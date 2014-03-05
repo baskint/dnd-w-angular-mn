@@ -1,0 +1,11 @@
+<div ng-if="l2present">
+    <div class="source-container" x-lvl-draggable="true"
+         ng-class="{ 'selected-source-container': $index == selectedCabinetIndex }"
+         ng-click="cabinetClicked($index)">
+                            <span id="{{cabinetId}}" class="cabinetToggle">
+                                {{cabinetName}}
+                            </span>
+        <input class="cabinetToggle" id="cabType_{{cabinetId}}" type="hidden"
+               value="{{cabinetType}}"/>
+    </div>
+</div>
