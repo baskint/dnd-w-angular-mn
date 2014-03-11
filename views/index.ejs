@@ -56,49 +56,17 @@
                     <h2 class="panel-title">Source Side Controls</h2>
                 </div>
                 <div class="panel-body cabinet-placement-area">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="drop-container" id="L1"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="L3"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="R1"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="R3"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'
-                                 cps-dnd-placement-L2></div>
+                    <div ng-repeat="placements in split_placements" class="row">
+                        <div ng-repeat="placement in placements" class="col-md-3">
+                            <cps-dnd-placement placement="placement" addplacedcabinet="addplacedcabinet(placedcabinet)"/>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="drop-container" id="L2"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'
-                                 cps-dnd-placement-L2></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="L4"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="R2"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="drop-container" id="R4"
-                                 x-lvl-drop-target="true" x-on-drop='dropped(dragEl, dropEl)'></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-md-2 col-md-offset-2">
             <button class="btn btn-large btn-warning" ng-click="refresh()">
@@ -152,7 +120,7 @@
 <div id="footer">
     <div class="container">
         <div class="row">
-            <p class="text-muted credit">Angular MN - 03/05/2014 Baskin Tapkan</p>
+            <p class="text-muted credit">Angular Drag & Drop - 03/11/2014 author: Baskin Tapkan</p>
         </div>
     </div>
 </div>

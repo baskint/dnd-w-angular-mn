@@ -43,12 +43,13 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function ($rootScope, u
                     e.preventDefault(); // Necessary. Allows us to drop.
                 }
 
-                if (e.target.children.length === 0) {
-                    if (hasClass(e.target, "cabinetToggle") == false) {
-                        e.dataTransfer.dropEffect = 'move'; // See the section on the DataTransfer object.
-                    } else {
-                        e.dataTransfer.dropEffect = 'none';
-                    }
+                if (e.target.children.length === 0 || e.target.hasAttributes('ngIf')) {
+                    e.dataTransfer.dropEffect = 'move';
+                    //if (hasClass(e.target, "cabinetToggle") == false) {
+                    //    e.dataTransfer.dropEffect = 'move'; // See the section on the DataTransfer object.
+                    //} else {
+                    //    e.dataTransfer.dropEffect = 'none';
+                    //}
                 } else {
                     e.dataTransfer.dropEffect = 'none';
                 }
