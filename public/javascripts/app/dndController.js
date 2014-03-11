@@ -67,8 +67,6 @@ dndApp.controller('DnDPocController', ['$scope', 'dndPocRepository', 'uuid', fun
             $scope.selectedCabinetIndex = -1;
     };
 
-
-
     $scope.baseCabName = "";
     $scope.addControl = function (baseCabName) {
         var nextId = $scope.numberOfCabinets() + 1;
