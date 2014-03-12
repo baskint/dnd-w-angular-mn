@@ -1,8 +1,9 @@
 Drag & Drop Example with AngularJS
 ==================================
 
->This is drag & drop HTML5 native example showcasing angularjs design patterns
-The drag & drop elements can be dynamically added and removed via the (+) and (-) buttons
+>This is drag & drop HTML5 native example showcasing angularjs design patterns. It uses Express framework.
+The drag & drop elements can be dynamically added and removed via the (+) and (-) buttons. They can be placed
+inside the container placement. 
 
 
 #Resources:
