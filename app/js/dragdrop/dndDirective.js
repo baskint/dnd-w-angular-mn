@@ -1,18 +1,15 @@
 ﻿'using strict';
 
 dndApp.directive('cpsDndPlacement', function () {
+    var rootSeg = getRootUrlAppBpaf();
 
     return {
         restrict: 'E',
         scope: {
             placement: '=',
-            placedcabinet: '=',
-            onplacementreceived: '=',
-            selectedCabinetIndex: '=',
-            addplacedcabinet: '&',
-            upvote: '&'
+            selectedCabinetId: '=',
+            orderId: '='
         },
-
         link: function (scope, element, attrs) {
 
             scope.dropped = function (dragEl, placement) {
@@ -20,28 +17,43 @@ dndApp.directive('cpsDndPlacement', function () {
                 var drag = angular.element(dragEl);
                 var dropEl = document.getElementById(placement.placementId);
                 var dragElParent = dragEl.parentNode;
-                var dropElChild = dropEl.firstChild;
                 var drop = angular.element(dropEl);
                 var placedcabinet = null;
 
-                // scope.placement.cabpresent = placement.cabpresent;
+                if (scope.placement.cabpresent === false && dropEl.children.length === 0) {
 
-                if (scope.placement.cabpresent === false) {
+                    // replace the contents
                     dropEl.appendChild(dragEl);
-                    // scope.placement.cabpresent = true;
-                    //scope.placement.cabpresent = true;
+                    // TODO : test below
                     dropEl.childNodes[2].class = "";
+                    // this class is added to the parent of the dragEl so that it could be keyed upon (see below else)
                     dragElParent.classList.add("pcabToggle");
-                    placedcabinet = extractDraggedCabinet(dragEl);
-                    placedcabinet.containerId = placement.placementId;
-                    scope.$emit("cabinet.placed", placedcabinet);
 
+                    // extract the JSON object from the DOM's dragEl
+                    placedcabinet = extractDraggedCabinet(dragEl);
+                    // assign two more properties
+                    placedcabinet.containerId = placement.placementId;
+                    placedcabinet.orderId = scope.orderId;
+
+                    // emit the event to be handled in controller
+                    scope.$emit("cabinet.placed", placedcabinet);
+                    // DOES NOT PLAY nicely with ng-bind and repeat. further research & understanding is required.
+                    // would have been much easier below constructs have worked
+                    //appendPlacedCabinet(placedcabinet);
+                    // below line should tell that i have no clue what it does.
+                    //attrs.$observe("ngIf", function (newValue) {
+                    //    element.text(newValue);
+                    //});
                 } else {
                     if (dropEl.children.length === 0 || dropEl.childNodes[2].classList.contains('pcabToggle')) {
                         if (dropEl.children.length < 2) {
                             dropEl.appendChild(dragEl);
                             placedcabinet = extractDraggedCabinet(dragEl);
+                            //  appendPlacedCabinet(placedcabinet);       <-- does not play nicely with ng-bind
                             placedcabinet.containerId = placement.placementId;
+                            placedcabinet.orderId = scope.orderId;
+
+                            // emit the event to be handled in controller
                             scope.$emit("cabinet.placed", placedcabinet);
                         }
                     }
@@ -51,15 +63,20 @@ dndApp.directive('cpsDndPlacement', function () {
                 drop.removeClass('lvl-over');
             };
 
-            scope.dirCabSelected = false;
+            // event handling fired from the controller - another hack so that we can clear the individual containers
+            scope.$on('placement.clearZone', function(e, name) {
+                if (name === scope.placement.placementId) {
+                    var dropNode = document.getElementById(name);
+                    if (dropNode.firstChild.nextElementSibling !== null) {
+                        // removing the section without touching ng-if comment section - if you do, nothing works!
+                        dropNode.removeChild(dropNode.firstChild.nextElementSibling);
+                    }
+                }
+            });
 
-            scope.cabinetClicked = function (cabSelected) {
-                if (scope.dirCabSelected === false) {
-                    scope.dirCabSelected = true;
-                    console.log(scope.selectedCabinetIndex);
-                    // scope.selectedCabinetIndex = scope.placement.cabinetId;
-                } else
-                    scope.dirCabSelected = false;
+            // sends an event to the controller
+            scope.cabinetClicked = function (cabinetId) {
+                scope.$emit('cabinet.clicked', cabinetId);
             };
 
             // inline function to extract the cabinet details from the dragged element
@@ -71,8 +88,17 @@ dndApp.directive('cpsDndPlacement', function () {
                 draggedItem.type = dragEl.children[1].value;
                 return draggedItem;
             }
+
+            // NOT IN USE - could not get the directive's property's change on the UI, something
+            // is not in sync with the template, perhaps need the $compile construct, more advanced right now.
+            function appendPlacedCabinet(placedcabinet) {
+                scope.placement.cabpresent = true;
+                scope.placement.placementId = placedcabinet.id;
+                scope.placement.cabinetName = placedcabinet.name;
+                scope.placement.cabinetType = placedcabinet.type;
+            }
         },
 
-        templateUrl: '/assets/templates/_PlacementContainer.html'
+        templateUrl: rootSeg + 'assets/templates/_PlacementContainer.html'
     };
 });

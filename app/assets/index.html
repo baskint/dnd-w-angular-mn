@@ -30,6 +30,15 @@
     </div>
 </div>
 <div class="page-content inset" style="margin-left:20px">
+    <div class="well well-sm">
+        <ul>
+            <li>Choose draggable elements from the left scrollable area to the source side control drop zones. </li>
+            <li>Use "Reset" button to update the source side control drop zone placements. Note that existing placed controls will be removed.</li>
+            <li>Use the (+) and (-) buttons to add/remove controls on to the scrollable area.</li>
+            <li>Use "Save" button to persist the placements for this order. An actual "Save" is not implemented in this version</li>
+
+        </ul>
+    </div>
     <div class="row">
         <div class="col-md-2">
             <button class="btn btn-warning" ng-click="toggleModal()">+</button>
@@ -38,20 +47,22 @@
 
                 <div ng-repeat="cabinet in cabinets">
                     <div class="drop-container" x-lvl-drop-target="false" x-on-drop='dropped(dragEl, dropEl)'>
-                        <div class="source-container" x-lvl-draggable="true"
-                             ng-class="{ 'selected-source-container': $index == selectedCabinetIndex }"
-                             ng-click="cabinetClicked($index)">
+                        <div class="source-container" x-lvl-draggable="true" ng-class="{ 'selected-source-container': cabinet.id == selectedCabinetId }"
+                             ng-click="cabinetClicked(cabinet.id)">
                             <span id="{{cabinet.id}}" class="cabinetToggle">
                                 {{cabinet.name}}
                             </span>
-                            <input class="cabinetToggle" id="cabType_{{cabinet.id}}" type="hidden"
-                                   value="{{cabinet.type}}"/>
+                            <input class="cabinetToggle" id="cabType_{{cabinet.id}}" type="hidden" value="{{cabinet.type}}"/>
                         </div>
                     </div>
-                </div>
 
+                </div>
+                <!-- an extra container for scratch area.-->
+                <div class="drop-container" x-lvl-drop-target="false" x-on-drop='dropped(dragEl, dropEl)'>
+                </div>
             </div>
         </div>
+
         <div class="col-md-10">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -60,30 +71,30 @@
                 <div class="panel-body cabinet-placement-area">
                     <div ng-repeat="placements in split_placements" class="row">
                         <div ng-repeat="placement in placements" class="col-md-3">
-                            <cps-dnd-placement placement="placement" addplacedcabinet="addplacedcabinet(placedcabinet)"/>
+                            <cps-dnd-placement placement="placement" selected-cabinet-id="selectedCabinetId" order-id="orderId"/>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-2 col-md-offset-2">
-            <button class="btn btn-large btn-warning" ng-click="refresh()">
-                <i class='fa fa-refresh fa-2x'></i>
-                Reset
-            </button>
-        </div>
-        <div class="col-md-2 col-md-offset-6">
-            <button class="btn btn-large btn-custom-lighten" style="float:right" ng-click="save()">
-                <i class='fa fa-save fa-2x'></i>
-                Save
-            </button>
+            <div class="row">
+                <div class="col-md-2">
+                    <button class="btn btn-large btn-warning" ng-click="refresh()">
+                        <i class='fa fa-refresh fa-2x'></i>
+                        Reset
+                    </button>
+                </div>
+                <div class="col-md-2 col-md-offset-8">
+                    <button class="btn btn-large btn-custom-lighten" style="float:right" ng-click="save()">
+                        <i class='fa fa-save fa-2x'></i>
+                        Save
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <modal-dialog show='modalShown' width='500px' height='50%'>
     <h3>Info</h3>
     <div class="well">
@@ -122,7 +133,7 @@
 <div id="footer">
     <div class="container">
         <div class="row">
-            <p class="text-muted credit">Angular Drag & Drop - 03/11/2014 author: Baskin Tapkan</p>
+            <p class="text-muted credit">Html5 native Drag & Drop using AngularJS patterns - 03/16/2014 author: Baskin Tapkan</p>
         </div>
     </div>
 </div>

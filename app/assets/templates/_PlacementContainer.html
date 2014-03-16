@@ -1,8 +1,9 @@
+<label style="margin-left:100px">{{placement.placementId}}</label>
 <div class="drop-container" id="{{placement.placementId}}"
      x-lvl-drop-target="true" x-on-drop='dropped(dragEl, placement)'>
     <div ng-if="placement.cabpresent" class="{{(placement.cabpresent === true ) ? 'cabToggle' : ''}}">
-        <div class="source-container static-drop" x-lvl-draggable="true" ng-class="{ 'selected-source-container': dirCabSelected}"
-             ng-click="cabinetClicked(placement.placementId)">
+        <div class="source-container static-drop" x-lvl-draggable="true" ng-class="{ 'selected-source-container': placement.cabinetId == selectedCabinetId}"
+             ng-click="cabinetClicked(placement.cabinetId)">
             <span id="{{placement.cabinetId}}" class="cabinetToggle">
                 {{placement.cabinetName}}
             </span>

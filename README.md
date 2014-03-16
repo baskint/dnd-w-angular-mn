@@ -7,6 +7,5 @@ inside the container placement.
 
 
 #Resources:
->
-> <a href="http://jasonturim.wordpress.com/2013/09/01/angularjs-drag-and-drop/">AngularJS Native Drag And Drop</a></li>
-> <a href="http://adamalbrecht.com/2013/12/12/creating-a-simple-modal-dialog-directive-in-angular-js/">Simple Modal Dialog Directive in Angular.js</a></li>
+* <a href="http://jasonturim.wordpress.com/2013/09/01/angularjs-drag-and-drop/">AngularJS Native Drag And Drop</a>
+* <a href="http://adamalbrecht.com/2013/12/12/creating-a-simple-modal-dialog-directive-in-angular-js/">Simple Modal Dialog Directive in Angular.js</a>
