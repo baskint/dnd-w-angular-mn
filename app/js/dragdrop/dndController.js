@@ -164,7 +164,7 @@ dndApp.controller('DnDPocController', [
             var zoneName = null;
             for (var key in $scope.split_placements) {
                 for (var x in $scope.split_placements[key]) {
-                    // does not play nicely with ng-repeat. tried turning off the elements via their properites, but no updates in the UI
+                    // does not play nicely with ng-repeat. tried turning off the elements via their properties, but no updates in the UI
                     // must be missing something or it is a limitation of the framework
                     zoneName = $scope.split_placements[key][x].placementId;
                     $scope.split_placements[key][x].cabpresent = false;
