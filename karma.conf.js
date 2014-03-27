@@ -19,7 +19,7 @@ module.exports = function (config) {
             { pattern: 'app/assets/bower_components/angular-mocks/angular-mocks.js', watched: false, included: true, served: true },
             'app/js/dndApp.js',
             'app/js/**/*.js',
-
+            // template file location
             'app/assets/templates/*.html'
         ],
 
